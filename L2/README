@@ -1,0 +1,16 @@
+In order to test CORS you have to run two containers (one for server and one for both clients). One uses the official nginx image, the other uses the image defined in L1 (note it should be tagged as flask, so should be built with: $ docker build -t flask .)
+
+It requires modyfing domain names in your local machine, i.e. editing /etc/hosts (on UNIX/Linux).
+Three entries should be added:
+
+127.0.0.1 server.company.com
+127.0.0.1 friend.company.com
+127.0.0.1 stranger.company.com
+
+Then, open two terminal sessions and run both client and server (using scripts: run-client and run-server).
+
+Script called run-client runs an nginx server with a custom index.html (it is controlled by -v flag in run-client script). Port 80 of the container is exposed in the host system as 80 (it requires that your user is an administrator).
+
+Script called run-client runs an embedded HTTP server with a simple Flask application. Port 5000 of the container is exposed in the host system as 5000.
+
+When you access http://friend.company.com in your browser it will show you a webpage which source is defined in client/index.html. This webpage shows a simple form and includes a JavaScript code (client/cors-test.js) which configures and sends an HTTP request to http://server.company.com. Note, that both names point to the same address: but your browser will consider it Cross-Origin, because the server name is important, not its IP address. Try running the JavaScript code by accessing http://stranger.company.com. It will point you to the same client container (because both names point to the same address), but again, the browser doesn't care about IP addresses.

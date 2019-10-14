@@ -1,0 +1,3 @@
+docker run --rm --name friend.company.com \
+           -v "$PWD/client:/usr/share/nginx/html:ro" -p80:80 \
+           nginx
