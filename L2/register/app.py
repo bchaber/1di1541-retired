@@ -6,6 +6,17 @@ from datetime import datetime as dt
 users = {}
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+  return '''<!doctype html>
+  <head><title>REGISTER endpoints</title></head>
+
+  <ul>
+  <li><a href='/user/bach'>Check if user `bach` has registered</a> works with HEAD and GET methods (has CORS enabled for all origins)</li>
+  <li><a href='/register'>The endpoint for user registration</a> works with POST method</li>
+  </ul>
+  ''', 200
+
 @app.route('/user/<username>', methods=['GET','OPTIONS','HEAD'])
 def get(username):
   response = make_response('', 404)
@@ -29,12 +40,12 @@ def register():
     if field not in data:
       errors.append("No '" + field + "' in data")
     elif not valid(field, data[field]):
-      errors.append("Field '" + field + "' is invalid")
+      errors.append("Field '" + field + "' is invalid: " + requirements(field))
     else:
       user[field] = data[field]
 
   if len(files) == 0 or 'photo' not in files:
-    errors.append("No 'photo' provided")
+    errors.append("No 'photo' provided: are you sure the form encoding type is correct?")
   else:
     user['photo'] = files['photo'].filename
 
@@ -88,3 +99,22 @@ def load_users():
   with open('/tmp/users.pkl', 'rb') as f:
     users = pickle.load(f)
     app.logger.warning("Loaded {} users".format(len(users)))
+
+def requirements(field):
+  if field == 'firstname':
+    return 'must begin with [A-Z] or a Polish character, followed by at least one lowercase [a-z] or a Polish character.'
+  if field == 'lastname':
+    return 'must begin with [A-Z] or a Polish character, followed by at least one lowercase [a-z] or a Polish character.'
+  if field == 'password':
+    return 'must be at least 8 characters of [A-Za-z]'
+  if field == 'birthdate':
+    return 'must be in format YYYY-MM-DD and year must be >= 1900'
+  if field == 'login':
+    return 'must be [a-z]{3,12}'
+  if field == 'pesel':
+    return 'must consist of 11 digits with correct checksum'
+  if field == 'sex':
+    return 'must be either "M" (male) or "F" (female)'
+  if field == 'photo':
+    return 'must be present'
+  return '(no requirements)'
