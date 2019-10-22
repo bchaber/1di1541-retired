@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  nginx:
+    image: chaberb/nginx-ssl
+    depends_on:
+      - flask
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx-uwsgi.conf:/etc/nginx/nginx.conf
+
+  flask: # when changing chaberb/flask to chaberb/uwsgi-flask change also nginx/nginx.conf
+   #image: chaberb/flask
+    image: chaberb/uwsgi-flask
+    volumes:
+      - ./auth:/var/www/app
