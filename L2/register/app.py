@@ -49,6 +49,9 @@ def register():
   else:
     user['photo'] = files['photo'].filename
 
+  if user['login'] in users:
+    errors.append("User '{}' already registered".format(user['login']))
+ 
   if len(errors) > 0:
     return "<ul><li>" + "</li>\n<li>".join(errors) + "</li></ul>", 400
 
