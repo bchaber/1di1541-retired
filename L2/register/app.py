@@ -49,13 +49,14 @@ def register():
   else:
     user['photo'] = files['photo'].filename
 
-  if user['login'] in users:
-    errors.append("User '{}' already registered".format(user['login']))
+  login = user.get('login')
+  if login in users:
+    errors.append("User '{}' already registered".format(login))
  
-  if len(errors) > 0:
+  if login is None or len(errors) > 0:
     return "<ul><li>" + "</li>\n<li>".join(errors) + "</li></ul>", 400
 
-  users[user['login']] = user
+  users[login] = user
   save_users()
   return json.dumps(user), 201
 
