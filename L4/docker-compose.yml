@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  nginx:
+    image: chaberb/nginx-ssl
+    depends_on:
+      - web
+      - cdn
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx-uwsgi.conf:/etc/nginx/nginx.conf
+
+  web:
+    image: chaberb/flask-jwt
+    volumes:
+      - ./web:/var/www/app
+
+  cdn:
+    image: chaberb/flask-jwt
+    volumes:
+      - ./cdn:/var/www/app
+      - /tmp:/tmp
