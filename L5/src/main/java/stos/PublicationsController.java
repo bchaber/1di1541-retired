@@ -25,6 +25,12 @@ public class PublicationsController {
     PublicationRepository publicationRepository = new PublicationRepositoryMock();
     AttachmentRepositoryMock attachmentRepository = new AttachmentRepositoryMock();
 
+    @GetMapping("/")
+    public ResponseEntity<String> index() {
+        return ResponseEntity
+                .ok().body("");
+    }
+    
     @GetMapping("/publications")
     public ResponseEntity<BibliographyDTO> all(@RequestParam(name="show", defaultValue="10") Integer show,
                                                @RequestParam(name="skip", defaultValue="0") Integer skip,
