@@ -2,7 +2,6 @@ package stos;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
@@ -32,11 +31,6 @@ public class PublicationsController {
                                                WebRequest request) {
         List<PublicationDTO> publications = new LinkedList<>();
         Date newest = null;
-        long count = publicationRepository.count();
-        long low  = Math.max(skip-show, 0);
-        long high = Math.min(skip+show, count);
-        String prev = String.format("/publications?skip=%d&show=%d", low,  Math.min(show, skip-low));
-        String next = String.format("/publications?skip=%d&show=%d", high, Math.min(show, high-skip));
         for (Publication p : publicationRepository.findAll()) {
             if (skip-- > 0)
                 continue;
@@ -44,7 +38,6 @@ public class PublicationsController {
                 break;
 
             PublicationDTO dto = Translator.newPublicationDTO(p);
-            dto.add(new Link("/publications/" + p.getUid(), "publication.self"));
             publications.add(dto);
 
             if (newest == null)
@@ -62,9 +55,6 @@ public class PublicationsController {
 
         BibliographyDTO bibliography = new BibliographyDTO();
         bibliography.setPublications(publications);
-        bibliography.add(new Link("/publications", "publication.new"));
-        bibliography.add(new Link(prev, "page.prev"));
-        bibliography.add(new Link(next, "page.next"));
 
         return ResponseEntity
                 .ok().lastModified(lastModified)
@@ -78,9 +68,6 @@ public class PublicationsController {
             throw new PublicationNotFoundException(uid);
 
         PublicationDTO dto = Translator.newPublicationDTO(p);
-        dto.add(new Link("/publications/" + uid + "/attachments", "attachment.new"));
-        for (String f : p.getAttachments())
-            dto.add(new Link("/attachments/" + f, "attachment.get"));
 
         return ResponseEntity
                 .ok()
@@ -97,7 +84,6 @@ public class PublicationsController {
         p.setDateModified(new Date());
         publicationRepository.save(p);
 
-        dto.add(new Link("/publications/" + p.getUid(), "publication.self"));
         return ResponseEntity
                 .ok()
                 .body(dto);
@@ -144,8 +130,6 @@ public class PublicationsController {
 
         publicationRepository.save(p);
 
-        dto.add(new Link("/publications/" + uid, "publication.parent"));
-        dto.add(new Link("/publications/" + uid + "/attachments/" + a.getUid(), "attachment.self"));
         return ResponseEntity
                 .ok()
                 .body(dto);

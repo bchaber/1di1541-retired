@@ -1,8 +1,6 @@
 package stos.dto;
 
-import org.springframework.hateoas.ResourceSupport;
-
-public class FileReferenceDTO extends ResourceSupport {
+public class FileReferenceDTO {
     private String uid;
 
     public String getUid() { return uid; }

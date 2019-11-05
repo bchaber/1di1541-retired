@@ -1,10 +1,8 @@
 package stos.dto;
 
-import org.springframework.hateoas.ResourceSupport;
-
 import java.util.List;
 
-public class BibliographyDTO extends ResourceSupport {
+public class BibliographyDTO {
     private List<PublicationDTO> publications;
 
     public List<PublicationDTO> getPublications() { return publications; }

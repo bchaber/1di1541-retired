@@ -1,8 +1,6 @@
 package stos.dto;
 
-import org.springframework.hateoas.ResourceSupport;
-
-public class AttachmentDTO extends ResourceSupport {
+public class AttachmentDTO {
     private String uid;
     private String hash; //SHA256
     private String filename;

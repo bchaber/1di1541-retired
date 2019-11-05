@@ -1,8 +1,6 @@
 package stos.dto;
 
-import org.springframework.hateoas.ResourceSupport;
-
-public class PublicationDTO extends ResourceSupport {
+public class PublicationDTO {
     private String uid;
     private String title;
     private Integer year;
