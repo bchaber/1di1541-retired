@@ -23,12 +23,8 @@ public class AttachmentController {
 
         AttachmentDTO dto = Translator.newAttachmentDTO(a);
 
-        String hash = a.getHash();
-        if (request.checkNotModified(hash))
-            return null;
-
         return ResponseEntity
-                .ok().eTag(hash)
+                .ok()
                 .body(dto);
     }
 

@@ -30,7 +30,6 @@ public class PublicationsController {
                                                @RequestParam(name="skip", defaultValue="0") Integer skip,
                                                WebRequest request) {
         List<PublicationDTO> publications = new LinkedList<>();
-        Date newest = null;
         for (Publication p : publicationRepository.findAll()) {
             if (skip-- > 0)
                 continue;
@@ -39,25 +38,13 @@ public class PublicationsController {
 
             PublicationDTO dto = Translator.newPublicationDTO(p);
             publications.add(dto);
-
-            if (newest == null)
-                newest = p.getDateModified();
-            if (newest.before(p.getDateModified()))
-                newest = p.getDateModified();
         }
-
-        if (newest == null)
-            newest = new Date();
-
-        long lastModified = newest.toInstant().toEpochMilli();
-        if (request.checkNotModified(lastModified))
-            return null;
 
         BibliographyDTO bibliography = new BibliographyDTO();
         bibliography.setPublications(publications);
 
         return ResponseEntity
-                .ok().lastModified(lastModified)
+                .ok()
                 .body(bibliography);
     }
 
