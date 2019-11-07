@@ -1,0 +1,136 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://stos.io"
+           targetNamespace="http://stos.io" elementFormDefault="qualified">
+    <!-- Exposed methods -->
+    <xs:element name="getPublicationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPublicationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="publication" type="tns:publication"/>
+                <xs:element name="attachments" type="tns:attachment" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPublicationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="publication" type="tns:publication"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPublicationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="publication" type="tns:publication"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updatePublicationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="publication" type="tns:publication"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updatePublicationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="publication" type="tns:publication"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deletePublicationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deletePublicationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="publication" type="tns:publication"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addAttachmentToPublicationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uid" type="xs:string"/>
+                <xs:element name="fuid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addAttachmentToPublicationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="publication" type="tns:publication"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAttachmentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAttachmentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="attachment" type="tns:attachment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAttachmentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="attachment" type="tns:attachment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAttachmentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="attachment" type="tns:attachment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Complex datatypes -->
+    <xs:complexType name="publication">
+        <xs:sequence>
+            <xs:element name="uid" type="xs:string"/>
+            <xs:element name="year" type="xs:int"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="synopsis" type="xs:string" minOccurs="0"/>
+            <xs:element name="authors" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="attachments" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="attachment">
+        <xs:sequence>
+            <xs:element name="uid" type="xs:string"/>
+            <xs:element name="hash" type="xs:string"/>
+            <xs:element name="filename" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
