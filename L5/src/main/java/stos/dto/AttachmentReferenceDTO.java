@@ -1,6 +1,6 @@
 package stos.dto;
 
-public class FileReferenceDTO {
+public class AttachmentReferenceDTO {
     private String uid;
 
     public String getUid() { return uid; }

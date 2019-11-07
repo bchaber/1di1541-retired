@@ -2,18 +2,20 @@ package stos;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import stos.StosExceptions.AttachmentConflictException;
+import stos.StosExceptions.AttachmentNotFoundException;
 import stos.dto.AttachmentDTO;
 import stos.entities.Attachment;
-import stos.repositories.AttachmentRepositoryMock;
-import stos.StosExceptions.*;
+import stos.repositories.AttachmentRepository;
 
 @RestController
 public class AttachmentController {
-    Logger logger = LoggerFactory.getLogger(AttachmentController.class);
-    AttachmentRepositoryMock attachmentRepository = new AttachmentRepositoryMock();
+    private Logger logger = LoggerFactory.getLogger(AttachmentController.class);
+    private AttachmentRepository attachmentRepository = new AttachmentRepository();
 
     @GetMapping("/attachments/{uid}")
     public ResponseEntity<AttachmentDTO> one(@PathVariable String uid, WebRequest request) {
@@ -22,9 +24,13 @@ public class AttachmentController {
             throw new AttachmentNotFoundException(uid);
 
         AttachmentDTO dto = Translator.newAttachmentDTO(a);
+        String hash = a.getHash();
+
+        if (request.checkNotModified(hash))
+            return null;
 
         return ResponseEntity
-                .ok()
+                .ok().eTag(hash)
                 .body(dto);
     }
 
@@ -37,6 +43,7 @@ public class AttachmentController {
 
         attachmentRepository.save(a);
 
+        dto.add(new Link("/attachments/" + dto.getUid(), "attachment.self"));
         return ResponseEntity
                 .ok()
                 .body(dto);

@@ -11,7 +11,7 @@ public class Publication {
     private String synopsis;
     private List<String> authors = new LinkedList<>();
     private List<String> attachments = new LinkedList<>();
-    private Date dateModified;
+    private Date modified;
 
     public Publication() {}
 
@@ -24,7 +24,7 @@ public class Publication {
         this.year = year;
         this.title = title;
         this.synopsis = synopsis;
-        this.dateModified = new Date(); // now
+        this.modified = new Date(); // now
     }
 
     public String getUid() {
@@ -38,13 +38,13 @@ public class Publication {
         return synopsis;
     }
     public List<String> getAuthors() { return authors; }
-    public Date getDateModified() { return dateModified; }
+    public Date getModified() { return modified; }
     public List<String> getAttachments() { return attachments; }
 
     public void setUid(String uid) { this.uid = uid; }
     public void setYear(Integer year) { this.year = year; }
     public void setTitle(String title) { this.title = title; }
     public void setSynopsis(String synopsis) { this.synopsis = synopsis; }
-    public void setDateModified(Date dateModified) { this.dateModified = dateModified; }
+    public void setModified(Date modified) { this.modified = modified; }
 
 }
