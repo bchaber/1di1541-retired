@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    color: #384047;
+}
+
+form {
+    max-width: 300px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+}
+
+h1 {
+    margin: 0 0 30px 0;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"] {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    font-size: 15px;
+    height: auto;
+    margin: 0;
+    outline: 0;
+    padding: 7px 15px;
+    width: 100%;
+    background-color: #e8eeef;
+    color: #5a5454;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+}
+
+input[type="radio"] {
+    margin: 0 4px 8px 0;
+}
+
+button {
+    padding: 10px 25px;
+    color: #FFF;
+    background-color: #4bc970;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid #3ac162;
+    border-width: 1px 1px 2px;
+    box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+    margin-bottom: 10px;
+}
+
+button:disabled,
+button[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: #868080;
+    border: 1px solid #535050
+}
+
+fieldset {
+    margin-bottom: 15px;
+    border: none;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 7px;
+}
+
+label.light {
+    font-weight: 300;
+    display: inline;
+}
+
+.error {
+    color: #d8000c;
+    background-color: #ffbaba;
+    border: 1px solid #ff7777;
+    border-radius: 3px 3px 3px 3px;
+    font-size: 11px;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+@media screen and (min-width: 480px) {
+    form {
+        max-width: 480px;
+    }
+}

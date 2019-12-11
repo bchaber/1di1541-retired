@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PAMW - Ćwiczenie 2.</title>
+
+  <link rel="stylesheet" type="text/css" href="static/style.css" />
+
+  <script defer src="/static/view.js"></script>
+  <script defer src="/static/presenter.js"></script>
+  <script defer src="/static/databinding.js"></script>
+
+  <link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-3.3.0/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine-3.3.0/jasmine.css">
+  <script type="text/javascript" src="jasmine/lib/jasmine-3.3.0/jasmine.js"></script>
+  <script type="text/javascript" src="jasmine/lib/jasmine-3.3.0/jasmine-html.js"></script>
+  <script type="text/javascript" src="jasmine/lib/jasmine-3.3.0/boot.js"></script>
+
+  <script src="jasmine/spec/RegisterUserFormSpec.js"></script>
+</head>
+
+<body>
+  <form name="form" form method="POST" action="http://edi.iem.pw.edu.pl/chaberb/register/user/" enctype="multipart/form-data">
+    <h1>Formularz</h1>
+
+    <fieldset>
+      <div>
+        <label>Imię *</label>
+        <input type="text" name="firstname" required />
+      </div>
+
+      <div>
+        <label>Nazwisko *</label>
+        <input type="text" name="lastname" required />
+      </div>
+
+      <div>
+        <label>Hasło</label>
+        <input type="password" name="password" />
+      </div>
+
+      <div>
+        <label>Powtórz hasło</label>
+        <input type="password" name="password2" />
+      </div>
+
+      <div>
+        <label>Data urodzenia</label>
+        <input type="date" name="birthdate" min="01-01-1900" />
+      </div>
+
+      <div>
+        <label>Login</label>
+        <input type="text" name="login" />
+      </div>
+
+      <div>
+        <label>PESEL</label>
+        <input type="text" name="pesel" />
+      </div>
+
+      <div>
+        <label>Płeć</label>
+        <input type="radio" name="gender" value="F">Kobieta</input>
+        <input type="radio" name="gender" value="M">Mężczyzna</input>
+      </div>
+
+      <div>
+        <label>Zdjęcie *</label>
+        <input type="file" name="photo" required />
+      </div>
+    </fieldset>
+
+    <button type="submit" name="button" disabled>Wyślij</button>
+  </form>
+</body>
+
+</html>
